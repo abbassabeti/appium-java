@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>HTMLRE Test - WaitON</title>
+            <style type="text/css">
+                    #form {
+                            margin-left:35px;
+                            margin: 10px;
+                            width: 400px;
+                    }
+					/* Enable... */
+                    .do {
+                            background-color: #add8e6;
+                            border: 1px solid blue;
+                            position:absolute;
+                            left:350px;
+                    }
+					
+					.do2 {
+                            background-color:white;
+                            position:absolute;
+                            left:350px;
+                    }
+                    
+					#reset {
+                            position:absolute;
+                            left:350px;
+                            color:black;
+                            background-color:gray;
+                            border:1px solid black;
+                    }
+
+                    /* Forms */
+                    
+                    label {
+                            width: 8em;
+                            float: left;
+                            text-align: left;
+                            margin-right: 0.5em;
+                            display: block
+                    }
+                    
+                    input {
+                            border: 1px dotted #6E8593;
+                    }
+
+                    /*textarea {
+                            border: 1px solid #6E8593;
+                            position:absolute;
+                            left: 600px;
+                            top: 10px;
+                    }*/
+
+                    fieldset {
+                            border: 1px dashed #6E8593;
+                            width: 100%;
+                    }
+
+                    legend {
+                            padding: 2px 6px
+                    }
+
+                    img {
+                            border: 0px;
+                    }
+            </style>
+            <script type="text/javascript">
+                var timeout=8000;
+                
+                function enableControl(id) {
+                        var control
+                        control = document.getElementById(id);
+                        if (control != null) {
+                                control.disabled = false;
+                        }		
+                }
+    	            
+				function openAlert(){
+                    //var dasXulFenster = window.open("XULPanel.xul", "Der Name","resizable=yes,scrollbars=yes,status=yes,modal=yes");
+                    var dasFenster = window.alert("Alert MsgBox");
+                }
+                
+                function openPrompt(){
+                    window.prompt("Prompt MsgBox");
+                    
+                }
+                
+                function openConfirm(){
+                    window.confirm("Confirm MsgBox");
+                }
+                
+                function getTimeout(){
+                    var control
+                     control = document.getElementById("timeout_txtBox");
+                    if(control != null) {
+                        timeout = control.value
+                    }  
+                }
+
+                function testControlClick(e, myControl, myMessage) {
+                    if(myControl.disabled)
+                        return;
+
+                    var infoBox
+                    if(!e)
+                        e = window.event
+
+                    infoBox = document.getElementById("testControlClick");
+
+                    if(e.shiftKey){
+                        infoBox.value = "shift and " + myMessage;
+                        return;
+                    }else if(e.altKey){
+                        infoBox.value = "alt and " + myMessage;
+                        return;
+                    }else if(e.ctrlKey){
+                        infoBox.value = "ctrl and " + myMessage;
+                        return;
+                    }
+                    
+                    if(infoBox.value!="") infoBox.value = infoBox.value + "\n";
+                    infoBox.value = infoBox.value + myMessage;
+                }
+
+                function testRightClick(e, myControl, myMessage){
+                    if (myControl.disabled != false){
+                        return;
+                    }
+                    var infoBox
+
+                    infoBox = document.getElementById("testControlClick");
+
+                    if(e.button == 2 ||e.which == 3){
+                        infoBox.value = myMessage;
+                    }else{
+                        return;
+                    }
+                }
+               
+                function resetMe() {
+                    location.reload(true);
+                }
+                        
+                function changeBrowserCaption(e, myControl){
+                    document.title = "HTMLTest anders - WaitON";
+                }				
+            </script>
+
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <meta name="Author" content="Michael Niessl feat. Hiva Oramary" />
+          </head>
+          
+		  <body>
+              <span style="font-size: 16px; color: red; font-weight: bold">HTML</span>
+                        <form id="Controls" action="#" method="post" name="waitonform" onsubmit="return false;">
+                                <p><label for="editbox">Editbox disabled</label>
+								<input type="text" id="editbox" value="" name="editbox" disabled="disabled" style="background:silver; width:300px" onclick="javascript:testControlClick(event, this, 'clicked on editbox...')" ondblclick="javascript:testControlClick(event, this, 'Double clicked on editbox...')"/> <!-- <span class="do" id="enableEditbox" onclick="setTimeout('enableControl(\'editbox\');', 3000); document.getElementById('editbox').style.backgroundColor='white'">Enable Editbox</span>-->
+								<input type="button" style="margin-left:55px" value="Enable Editbox" id="enableEditbox" onclick="setTimeout('enableControl(\'editbox\');', 3000); document.getElementById('editbox').style.backgroundColor='white'"/>
+								<input type="button" style="margin-left:10px" value="Clear" id="clearbutton" onclick="document.getElementById('editbox').value=''"/>
+								</p>
+
+								<p><label for="editbox_Mover">Mouseover</label>
+								<input type="text" id="editbox_Mover" value="" onmouseover="this.form.editbox_Mover.value='maus fährt over'" onmouseout="this.form.editbox_Mover.value=''" onclick="javascript:testControlClick(event, this, 'clicked on editbox...');"/>
+								</p>
+								
+								<p><label for="bla">nur so</label>
+								<input type="text" id="bla" style="width:300px" onclick="document.getElementById('testControlClick').value='clicked in nur so'"/>
+								<input type="button" style="margin-left:55px" value="Clear" id="clearbutton2" onclick="document.getElementById('bla').value=''"/>
+								</p>
+							
+							
+								<p><label onclick="document.getElementById('testControlClick').value='clicked on Label Button'">Button</label>
+								<input type="button" id="superman" name="button" value="Click me" onclick="javascript:testControlClick(event, this, 'clicked on button: CLICK ME')"/><span class="do" id="disableButton" onclick="document.getElementById('superman').disabled=true" >Disable Button</span>
+								<input type="button" id="batman" name="button2" value="Do it" ondblclick="javascript:testControlClick(event, this, 'Doubleclicked on button: DO IT')"/><!--<span class="do" id="disableButton" onclick="document.getElementById('batman').disabled=true" >Disable Button</span>-->
+								<input type="button" id="spiderman" name="button3" value="here" onclick="javascript:testControlClick(event, this, 'clicked on button: HERE')" ondblclick="javascript:testControlClick(event, this, 'Double clicked on button: HERE')"/>
+								</p>
+							
+								
+                                <p><label ondblclick="document.getElementById('testControlClick').value='doubleclicked on Label Checkbox LC'">Checkbox LC</label>
+								<input type="checkbox" id="check#box" name="checkbox" value="Check1" onclick="javascript:testControlClick(event, this, 'clicked on checkbox...')"/>Check1<span class="do" id="disableCheckbox" onclick="document.getElementById('check#box').disabled=true" >Disable Checkbox</span>
+								</p>
+							
+							    <p><label for="checkbox_dc">Checkbox DC</label>
+								<input type="checkbox" id="checkbox_dc" name="checkbox_dc" value="Check2" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on checkbox...')"/>Check2
+								</p>
+							
+                                <p><label for="radio1">Radiobutton</label>
+								<input type="radio" id="radio1" name="radio" value="Radio1" onclick="javascript:testControlClick(event, this, 'clicked on radiobutton1...')"/>Radio1 
+								<input type="radio" id="radio2" name="radio" value="Radio2" ondblclick="javascript:testControlClick(event, this, 'Double clicked on radiobutton2...')"/>Radio2
+								<span class="do" id="disableRadiobutton" onclick="[document.getElementById('radio1').disabled=true, document.getElementById('radio2').disabled=true]">Disable Radiobuttons</span>
+								</p>   
+								
+								<p><label for="link">Link</label>
+								<a id="link" name="link" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on link...')" onclick="javascript:testControlClick(event, this, 'clicked on link...')">Link</a>
+								<span class="do" id="disableLink" onclick="document.getElementById('link').disabled=true" >Disable Link</span>
+								</p>
+                                
+								<p><label for="linkWithUrl">LinkWithUrl</label>
+								<a id="linkWithUrl" href="tables.html" name="linkWithUrl" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on link...')" onclick="javascript:testControlClick(event, this, 'clicked on link...')">Link With Url</a>
+								<span class="do" id="disableLinkwithurl" onclick="document.getElementById('linkWithUrl').disabled=true" >Disable Link</span>
+								</p>
+								
+                                <p><label for="imglink">ImageLink</label>
+								<input type="image" id="imglink" src="smile.jpg" alt="gif" name="imglink" style="width:70px; height:70px" onclick="javascript:testControlClick(event, this, 'clicked on Imglink...')" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on Imglink...')"  />
+                                </p>
+						</form>
+                        
+						
+						<div id="TA_position" style="position:fixed; top:300px; left:700px">
+						<textarea name="textarea2" id="for_status" rows="3" cols="30" onclick="document.getElementById('testControlClick').value='clicked in Textarea'" ondblclick="document.getElementById('testControlClick').value='doubleclicked in Textarea'"></textarea>  
+						<form action="#">
+                                <textarea name="textarea" id="testControlClick" rows="5" cols="30"></textarea>
+                                <input type="button" value="Reset all" id="reset" style="position:fixed; top:500px; left:700px; width:265px; height:100px; color:yellow; font-size:25px; fon-weight:bold" onclick="resetMe()"/>
+                        </form>
+						 <span style="font-size: 16px; font-weight: bold; position:fixed; top:380px; left:640px;">Status 2</span>
+						 <input type="button" value="Disable Textarea" name="testname" id="disableTextarea" onclick="document.getElementById('testControlClick').disabled=true"/>
+						</div>
+						
+						<span style="font-size:16px; font-weight:bold">Tabletest:  </span><a href="tables.html">tables.html</a></br>
+						<span style="font-size:16px; font-weight:bold">Frametest:  </span><a href="frames.html">frames.html</a></br>
+						<span style="font-size:16px; font-weight:bold">iFrametest:  </span><a href="iFrames.html" id="iframes">iFrames.html</a></br>
+						<span style="font-size:16px; font-weight:bold">Waitontest:  </span><a href="waiton.html">waiton.html</a>
+		  </body>
+		  </html>

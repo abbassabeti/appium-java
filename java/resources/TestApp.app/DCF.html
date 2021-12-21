@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>HTMLRE Test - DCF</title>
+            <style type="text/css">
+                    #form {
+                            margin-left:35px;
+                            margin: 10px;
+                            width: 400px;
+                    }
+					/* Enable... */
+                    .do {
+                            background-color: #add8e6;
+                            border: 1px solid blue;
+                            position:absolute;
+                            left:350px;
+                    }
+					
+					.do2 {
+                            background-color:white;
+                            position:absolute;
+                            left:350px;
+                    }
+                    
+					#reset {
+                            position:absolute;
+                            left:350px;
+                            color:black;
+                            background-color:gray;
+                            border:1px solid black;
+                    }
+
+                    /* Forms */
+                    
+                    label {
+                            width: 8em;
+                            float: left;
+                            text-align: left;
+                            margin-right: 0.5em;
+                            display: block
+                    }
+                    
+                    input {
+                            border: 1px dotted #6E8593;
+                    }
+
+                    /*textarea {
+                            border: 1px solid #6E8593;
+                            position:absolute;
+                            left: 600px;
+                            top: 10px;
+                    }*/
+
+                    fieldset {
+                            border: 1px dashed #6E8593;
+                            width: 100%;
+                    }
+
+                    legend {
+                            padding: 2px 6px
+                    }
+
+                    img {
+                            border: 0px;
+                    }
+            </style>
+            <script type="text/javascript">
+                var timeout=8000;
+                
+                function enableControl(id) {
+                        var control
+                        control = document.getElementById(id);
+                        if (control != null) {
+                                control.disabled = false;
+                        }		
+                }
+    	            
+				function openAlert(){
+                    //var dasXulFenster = window.open("XULPanel.xul", "Der Name","resizable=yes,scrollbars=yes,status=yes,modal=yes");
+                    var dasFenster = window.alert("Alert MsgBox");
+                }
+                
+                function openPrompt(){
+                    window.prompt("Prompt MsgBox");
+                    
+                }
+                
+                function openConfirm(){
+                    window.confirm("Confirm MsgBox");
+                }
+                
+                function getTimeout(){
+                    var control
+                     control = document.getElementById("timeout_txtBox");
+                    if(control != null) {
+                        timeout = control.value
+                    }  
+                }
+
+                function testControlClick(e, myControl, myMessage) {
+                    if(myControl.disabled)
+                        return;
+
+                    var infoBox
+                    if(!e)
+                        e = window.event
+
+                    infoBox = document.getElementById("testControlClick");
+
+                    if(e.shiftKey){
+                        infoBox.value = "shift and " + myMessage;
+                        return;
+                    }else if(e.altKey){
+                        infoBox.value = "alt and " + myMessage;
+                        return;
+                    }else if(e.ctrlKey){
+                        infoBox.value = "ctrl and " + myMessage;
+                        return;
+                    }
+                    
+                    if(infoBox.value!="") infoBox.value = infoBox.value + "\n";
+                    infoBox.value = infoBox.value + myMessage;
+                }
+
+                function testRightClick(e, myControl, myMessage){
+                    if (myControl.disabled != false){
+                        return;
+                    }
+                    var infoBox
+
+                    infoBox = document.getElementById("testControlClick");
+
+                    if(e.button == 2 ||e.which == 3){
+                        infoBox.value = myMessage;
+                    }else{
+                        return;
+                    }
+                }
+               
+                function resetMe() {
+                    location.reload(true);
+                }
+                        
+                function changeBrowserCaption(e, myControl){
+                    document.title = "HTMLTest anders - WaitON";
+                }				
+            </script>
+
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <meta name="Author" content="Michael Niessl feat. Hiva Oramary" />
+          </head>
+          
+		  <body>
+              <span id="dcf" style="font-size: 16px; color: red; font-weight: bold">DCF</span>
+                        <form id="Controls" action="#" method="post" name="waitonform" onsubmit="return false;">
+						
+						<input type="button" id="dcf_button" name="button" value="Brain" style="position:absolute; top:350px; left:500px; height:100px; width:100px; color:red; background:black; font-weight:bold"  onclick="javascript:testControlClick(event, this, 'clicked on button: CLICK ME')"/>
+                                
+						<input type="text" style="position:absolute; top:50px; left:100px" onclick="javascript:testControlClick(event, this, 'clicked on editbox...')" ondblclick="javascript:testControlClick(event, this, 'Double clicked on editbox...')"/>
+								
+						<!--FIELDSET-->	
+						<fieldset style="max-width:200px; border:solid 1px; position:absolute; top:350px; left:50px">
+							<legend>Fieldset</legend>
+								<p><label for="editboxMaxL">Editbox maxlength</label>
+								<input type="text" maxlength="4" onclick="javascript:testControlClick(event, this, 'clicked on editbox...')" ondblclick="javascript:testControlClick(event, this, 'Double clicked on editbox...')"/>
+								</p>
+						</fieldset>
+							
+						<input type="checkbox" style="position:absolute; top:150px; left:50px" onclick="javascript:testControlClick(event, this, 'clicked on checkbox...')"/>
+						<span class="do" style="position:absolute; top:150px; left:100px" onclick="document.getElementById('check#box').disabled=true" >Disable Checkbox</span>
+						<input type="checkbox" style="position:absolute; top:200px; left:50px" onclick="javascript:testControlClick(event, this, 'clicked on checkbox...')"/>
+															        
+						<input type="radio" style="position:absolute; top:50px; left:700px" onclick="javascript:testControlClick(event, this, 'clicked on radiobutton1...')"/>
+									
+						<a href="tables.html" style="position:absolute; top:250px; left:60px" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on link...')" onclick="javascript:testControlClick(event, this, 'clicked on link...')">Link With Url</a>
+								
+						<input type="image" src="smile.jpg" alt="gif" style="width:70px; height:70px; position:absolute; top:150px; left:650px" onclick="javascript:testControlClick(event, this, 'clicked on Imglink...')" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on Imglink...')"  />
+
+						<input type="file" size="33" style="position:absolute; top:500px; left:600px" accept="text/xml"/>
+                                
+                        <select style="position:absolute; top:370px; left:750px" onclick="javascript:testControlClick(event, this, 'clicked on ComboBox...')" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on ComboBox...')">
+							<option>Eins</option>
+							<option>Zwei</option>
+                        </select>
+                                
+                        <select multiple="multiple" size="5" style="position:absolute; top:610px; left:80px" onclick="javascript:testControlClick(event, this, 'clicked on Listbox...')">
+							<option>Vier;Fünf</option>
+				            <option>#1</option>
+				        </select> 
+								
+						<span style="position:absolute; top:250px; left:350px; text-decoration: underline" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on generic element...')" onclick="javascript:testControlClick(event, this, 'clicked on generic element...')">Click me</span>
+								
+						<img src="tosca.jpg" alt="toscaClick" style="position:absolute; top:250px; left:750px;" onclick="document.getElementById('testControlClick').value='clicked on image1'"/>
+						</form>
+                        
+						<div id="TA_position" style="position:fixed; top:600px; left:400px">						
+						<form action="#">
+                                <textarea name="textarea" rows="5" cols="30"></textarea>
+                                <input type="button" value="Reset all" style="position:fixed; top:700px; left:400px" onclick="resetMe()"/>
+                        </form>
+						</div>
+						<span style="font-size:16px"  </span><a href="tables.html">tables.html</a></br>
+		  </body>
+		  </html>

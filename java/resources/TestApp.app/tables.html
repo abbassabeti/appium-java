@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+		<title>HTMLRE Test - Tables</title>
+		
+		<style type="text/css">
+		    .do {
+				background-color: lightblue;
+				border: 1px solid blue;
+				position:relative;
+			}
+			input {
+				border: 1px dotted #6E8593;
+			}
+			
+			table {
+				border: 1px solid black;
+				border-collapse: collapse;
+			}
+			td {
+				border: 1px solid black;
+			}
+			
+			th {
+				border: 1px solid black;
+			}
+		</style>
+
+		<script type="text/javascript">
+			var timeout=1000;
+			function enableControl(id) {
+				var control
+				control = document.getElementById(id);
+				if (control != null) {
+					control.disabled = false;
+				}
+			}
+			
+			function testControlClick(e, myControl, myMessage) {
+                    if(myControl.disabled)
+                        return;
+
+                    var infoBox
+                    if(!e)
+                        e = window.event
+
+                    infoBox = document.getElementById("testControlClick");
+
+                    if(e.shiftKey){
+                        infoBox.value = "shift and " + myMessage;
+                        return;
+                    }else if(e.altKey){
+                        infoBox.value = "alt and " + myMessage;
+                        return;
+                    }else if(e.ctrlKey){
+                        infoBox.value = "ctrl and " + myMessage;
+                        return;
+                    }
+                    
+                    if(infoBox.value!="") infoBox.value = infoBox.value + "\n";
+                    infoBox.value = infoBox.value + myMessage;
+                }
+				
+			function testRightClick(e, myControl, myMessage){
+					if(myControl.disabled)
+                        return;
+                    var infoBox
+                    infoBox = document.getElementById("testControlClick");
+                    if(e.button == 2 ||e.which == 3){
+                        infoBox.value = myMessage;
+                    }else{
+						return;
+                    }
+                }
+		/* 	function testControlClick(srcControl, myText) {
+				if (srcControl.disabled != false) return;
+				
+				var control
+				control = document.getElementById("testControlClick");
+				if (control != null) {
+					control.value=myText;
+				}
+			} */
+			
+			function resetMe() {
+				location.reload(true);
+			}
+			
+		</script>	
+
+	</head>
+	<body>
+		<div id="same">
+		<table width="400" id="same_rowname" cellpadding="5" cellspacing="2" style="margin-top:20px; margin-left:450px" >
+		<thead>
+		 <tr>
+		  <th align="left">Same</th>
+		  <th align="right">Blame</th>
+		  <th align="right">InputRow</th>
+		  <th align="right">01.01.2013</th>
+		 </tr>
+		</thead>
+		 <tbody>
+		 <tr>
+		  <td align="left">This Row</td>
+		  <td align="right">This Row</td>
+		  <td align="right"><INPUT type="button" id="bclick" name="button_click" value="Click"  onclick="document.getElementById('testControlClick').value='Click on Button: Click'"></td>
+		  <td align="right"><INPUT type="button" id="bdblclick" name="button_dblclick" value="Doubleclick"  ondblclick="document.getElementById('testControlClick').value='doubleclick on Button: Doubleclick'"></td>
+		 </tr>
+		 <tr>
+		  <td align="left">2</td>
+		  <td align="right">Different</td>
+		  <td align="right">123</td>
+		  <td align="right">Neu</td>
+		  </tr>
+		 <tr id="trtest">
+		  <td align="left">#3</td>
+		  <td align="right">Different</td>
+		  <td align="right">2</td>
+		  <td id="tdtest" align="right"><INPUT type="button" name="disable_buttons" value="Disable"  onclick="[document.getElementById('bclick').disabled=true, document.getElementById('bdblclick').disabled=true, document.getElementById('ti_maxlength').disabled=true]"></td>
+		 </tr>
+		 </tbody>
+		 <tr>
+		  <td align="left">Fourth</td>
+		  <td align="right">Sunshine</td>
+		  <td align="right">max. 5 Zeichen  <INPUT type="text" id="ti_maxlength" name="in4" size="10" maxlength="5"></td>
+		 </tr>
+		 <tfoot>
+		 <tr>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">Tabelle</td>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">Same rowname</td>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">A</td>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">B</td>
+		 </tr>
+		 </tfoot>
+		</table>
+		</div>
+		<p></p>
+		
+		<!-- COLSPAN TABELLE -->
+		<table id="colspan" style="margin-left:440px" cellpadding="5" cellspacing="2">
+		<thead>
+		<tr>
+		  <th>Name</th>
+		  <th colspan="2">Telephone</th>
+		  <th colspan="1">Telephone 2</th>
+		</tr>
+		</thead>
+		<tr>
+		  <td>Bill Gates</td>
+		  <td>555 77 854</td>
+		  <td>555 77 855</td>
+		  <td>555 77 856</td>
+		</tr>
+		<tr>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">Tabelle</td>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">Colspan</td>
+		</tr>
+		</table>
+		<p></p>
+		
+		<!-- ROWSPAN TABELLE -->
+		<table id="rowspan" style="margin-left:520px" cellpadding="5" cellspacing="2">
+		
+		<tr>
+		  <td>Steve Jobs</td>
+		  <td>Bill Gates</td>
+		</tr>
+		<tr>
+		  <td rowspan="2">111 11 111</td>
+		  <td>555 77 854</td>
+		</tr>
+		<tr>
+		  <td>555 77 855</td>
+		</tr>
+		<tr>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">Tabelle</td>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">Rowspan</td>
+		</tr>
+		</table>
+		<p></p>
+		
+		<!-- TABELLE MITCONTROLS -->
+		<table id="mit_controls" style="margin-left:360px" cellpadding="5" cellspacing="2">
+		 <tr>
+		  <th id="ID1" align="left">Spalte1</th>
+		  <th id="ID2" align="right">Spalte2</th>
+		  <th id="ID3" align="right">Spalte3</th>		  
+		 </tr>
+		 
+		 <!-- Editboxen -->
+		 <tr>
+		    <td align="left">
+		        <p><input id="editboxDisabled" type="text" disabled="disabled" value="Klick auf Button rechts um zu aktivieren" size="40" name="editboxDisabled" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on editbox...');" onclick="javascript:testControlClick(event, this, 'clicked on editbox...');" onmousedown="testRightClick(event, this, 'Right clicked on editbox...');"></p>
+		        <p><input id="editbox1" type="text" name="editbox1" value="aktiviert" onclick="javascript:testControlClick(event, this, 'clicked on editbox1...');" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on editbox1...');"></p>
+				<p><input id="editbox1" type="text" name="editbox_kopie" value="ID wie obere Editbox" onclick="javascript:testControlClick(event, this, 'clicked on editbox_kopie...');" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on editbox_kopie...');"></p>
+			</td>
+		    <td align="center">
+		        <input type="button" id="enableEditbox" value="Enable Editbox" onclick="javascript:testControlClick(event, this, 'clicked on Enable Editbox');setTimeout('enableControl(\'editboxDisabled\');', timeout)" onmousedown="testRightClick(event, this, 'Right clicked on button...');">
+		    </td>
+		  <td align="right">*</td>
+		 </tr>
+		 <!-- Checkboxen -->
+		 <tr>
+		  <td align="left"><input id="checkbox1" name="checkbox1" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on checkbox1...');" onclick="javascript:testControlClick(event, this, 'clicked on checkbox1...');" onmousedown="testRightClick(event, this, 'Right clicked on checkbox1...');" type="checkbox" value="Check1"><input id="checkbox2" name="checkbox2" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on checkbox2...');" onclick="javascript:testControlClick(event, this, 'clicked on checkbox2...');" onmousedown="testRightClick(event, this, 'Right clicked on checkbox2...');" type="checkbox" value="Check2"></td>
+		  <td align="right">$241.10</td>
+		  <td align="right">$50.20</td>
+		 </tr>
+		 
+		 <!-- Radiobuttons -->
+		 <tr>
+		  <td align="left">Radiobuttongroup</td>
+          <td align="right">
+		        <input id="radio1" type="radio" value="Radio1" name="rbgrpInCell" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on radio1...');" onclick="javascript:testControlClick(event, this, 'clicked on radio1...');">Radio1	<!--onmousedown="testRightClick(event, this, 'Right clicked on rbgrpInCell-radio1...');"-->
+                <input id="radio2" type="radio" value="Radio2" name="rbgrpInCell" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on radio2...');" onclick="javascript:testControlClick(event, this, 'clicked on radio2...');">Radio2	<!--onmousedown="testRightClick(event, this, 'Right clicked on rbgrpInCell-radio2...');"--> 
+          </td>
+		  <td align="right">
+		  <input id="radio3" type="radio" value="Radio3" name="rbgrpInCell" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on radio3...');" onclick="javascript:testControlClick(event, this, 'clicked on radio3...');">
+		  </td>
+		  </tr>
+		 
+		 <!-- Comboboxen -->
+		 <tr> 
+		 <td align="right">                               
+			<SELECT name="combobox1" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on combobox1...');" onclick="javascript:testControlClick(event, this, 'clicked on combobox1...');">	<!-- onmousedown="testRightClick(event, this, 'Right clicked on combobox1...');"-->
+				<OPTION>Nummer12345</OPTION>
+				<OPTION>11</OPTION>
+                <OPTION>#5</OPTION>
+                <OPTION>Sonderzeichen_ä#+*~</OPTION>
+				<OPTION>Test</OPTION>
+            </SELECT>
+			
+			<SELECT name="combobox2" ondblclick="javascript:testControlClick(event, this, 'doubleclicked on combobox2...');" onclick="javascript:testControlClick(event, this, 'clicked on combobox2...');">	<!--onmousedown="testRightClick(event, this, 'Right clicked on combobox2...');"-->
+				<OPTION>11</OPTION>
+                <OPTION selected>Tricentis Technology</OPTION>
+                <OPTION></OPTION>
+            </SELECT></td>
+	  	 <td align="right">Combobox</td>
+		 <td align="right">#2</td>
+		 </tr>
+		 <tr>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">Tabelle</td>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">Mitcontrols</td>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">bla</td>
+		 </tr>
+		 </table>
+		
+		 <!-- Statusbox (Textarea) -->
+		 <div id="textarea" style="position:fixed; left:20px; top:300px">
+		 <span style="font-size: 16px; font-weight: bold; color:blue;">Status</span>
+		 <textarea name="TA" title="textarea" id="testControlClick" rows="5" cols="30" style="border-width:2px; border-color:black; border-style:dotted;"></textarea>
+		 </div>
+		 
+		 <div id="back_button" style="position:fixed; top:500px; left:100px;">
+		 <input type="button" value="Goto waiton" id="gtwaiton" onclick="window.location='waiton.html'" style="margin-bottom:10px"></br>
+		 <input type="button" value="Goto frames" id="gtframes" onclick="window.location='frames.html'" style="margin-bottom:10px"></br>
+		 <input type="button" value="Goto iframes" id="gtiframes" onclick="window.location='iFrames.html'" style="margin-bottom:10px"></br>
+		 <input type="reset" value="Reset" id="button_reset" onclick="javascript:resetMe();" style="background:black; color:yellow">
+		 </div>
+		 </html>
+		 
+		 
+		<!-- 
+		<div id="temp">
+		<table width="400" id="temptable" cellpadding="5" cellspacing="2" style="margin-top:20px; margin-left:450px" >
+		<thead>
+		 <tr>
+		  <th align="left">~Same</th>
+		  <th align="right">"ARRAY"</th>
+		  <th align="right">{CLICK}</th>
+		  <th align="right">*InputRow</th>
+		 </tr>
+		</thead>
+		 <tbody>
+		 <tr>
+		  <td align="left">{This Row}</td>
+		  <td align="right">This Row</td>
+		  <td align="right"><INPUT type="button" id="bclick" name="button_click" value="Click"  onclick="document.getElementById('testControlClick').value='Click on Button: Click'"></td>
+		  <td align="right"><INPUT type="button" id="bdblclick" name="button_dblclick" value="Doubleclick"  ondblclick="document.getElementById('testControlClick').value='doubleclick on Button: Doubleclick'"></td>
+		 </tr>
+		 <tr>
+		  <td align="left">2;"done"</td>
+		  <td align="right">Different</td>
+		  <td align="right">123</td>
+		  <td align="right">Neu</td>
+		  </tr>
+		 <tr>
+		  <td align="left">#3</td>
+		  <td align="right">Different</td>
+		  <td align="right">2</td>
+		  <td align="right"><INPUT type="button" name="disable_buttons" value="Disable"  onclick="[document.getElementById('bclick').disabled=true, document.getElementById('bdblclick').disabled=true, document.getElementById('ti_maxlength').disabled=true]"></td>
+		 </tr>
+		 </tbody>
+		 <tr>
+		  <td align="left">{}Fourth</td>
+		  <td align="right">Sunshine</td>
+		  <td align="right">max. 5 Zeichen  <INPUT type="text" id="ti_maxlength" name="in4" size="10" maxlength="5"></td>
+		  <td align="right">bla</td>
+		 </tr>
+		 <tfoot>
+		 <tr>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">[Tabelle]</td>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">Same rowname</td>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">A</td>
+		  <td style="font-size: 16px; font-weight: bold; color:red;">B</td>
+		 </tr>
+		 </tfoot>
+		</table>
+		</div>
+		-->

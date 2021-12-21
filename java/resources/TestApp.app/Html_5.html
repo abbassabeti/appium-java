@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Input</title>
+    </head>
+    <body>
+		<p id='other'>email</p>
+		<input class="string email optional" id="email" name="user[email]" placeholder="Email Address" size="50" type="email">		
+		<p id='other'>number</p>
+		<input class="string number optional" id="number" size="50" type="number">
+		<p id='other'>search</p>
+		<input class="string search optional" id="search" size="50" type="search">		
+		<p id='other'>tel</p>
+		<input class="string tel optional" id="tel" size="50" type="tel" onclick="document.getElementById('url').value='clicked in TEL'"> 		
+		<p id='other'>url</p>
+		<input class="string url optional" id="url" size="50" type="url">
+		<p id='other'>url disabled</p>
+		<input class="string url optional" id="url disabled" size="50" type="url" disabled>		
+		<!--<p id='other'>text</p>
+		<input class="string text optional" id="text" size="50" type="text">		
+		<p id='other'>password</p>
+		<input class="string password optional" id="password" size="50" type="password">		
+		
+		<p id='other'>password waiton</p>
+		<input class="string password optional" id="waiton" size="50" type="password" disabled="disabled"> <input type="button" value="Enable" onclick="document.getElementById('waiton').disabled=false"/>
+		-->
+		
+		<p><input type="reset" value="Reset all" onclick="location.reload(true);"></p>
+    </body>
+</html>
